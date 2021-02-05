@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.getStringExtra(NewWordActivity.EXTRA_REPLY)?.let {
-                val word = Word(it)
+                val word = Word(word = it)
                 wordViewModel.insert(word)
             }
         } else {

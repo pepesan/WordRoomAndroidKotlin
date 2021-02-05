@@ -1,9 +1,6 @@
 package com.example.wordroomandroidkotlin
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -17,4 +14,11 @@ interface WordDao {
 
     @Query("DELETE FROM word_table")
     suspend fun deleteAll()
+
+    @Query("SELECT * FROM word_table where id like :id")
+    fun getWordById(id: Long): Word
+    @Update
+    fun updateWord(word: Word)
+    @Delete
+    fun deleteWord(word: Word)
 }
