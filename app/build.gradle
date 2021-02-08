@@ -49,6 +49,8 @@ dependencies {
     implementation "androidx.activity:activity-ktx:1.1.0"
     //ext room
     implementation "androidx.room:room-ktx:2.2.6"
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
     kapt "androidx.room:room-compiler:2.2.6"
     androidTestImplementation "androidx.room:room-testing:2.2.6"
     // ext lifecycle
