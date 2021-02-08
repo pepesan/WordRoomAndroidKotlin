@@ -1,6 +1,7 @@
 package com.example.wordroomandroidkotlin
 
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.Flow
 
 // Declares the DAO as a private property in the constructor. Pass in the DAO
@@ -18,5 +19,10 @@ class WordRepository(private val wordDao: WordDao) {
     @WorkerThread
     suspend fun insert(word: Word) {
         wordDao.insert(word)
+    }
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun findById(id: Int): Flow<Word> {
+        return wordDao.getWordById(id)
     }
 }
