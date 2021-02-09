@@ -25,4 +25,9 @@ class WordRepository(private val wordDao: WordDao) {
     suspend fun findById(id: Int): Flow<Word> {
         return wordDao.getWordById(id)
     }
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun update(word:Word) {
+        return wordDao.updateWord(word)
+    }
 }

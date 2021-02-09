@@ -25,6 +25,9 @@ class WordViewModel(private val repository: WordRepository) : ViewModel() {
     fun getElementById(id: Int) = viewModelScope.launch {
         selectedItem = repository.findById(id).asLiveData()
     }
+    fun updateElement(word: Word) = viewModelScope.launch {
+        repository.update(word)
+    }
 }
 
 class WordViewModelFactory(private val repository: WordRepository) : ViewModelProvider.Factory {

@@ -1,53 +1,52 @@
 package com.example.wordroomandroidkotlin
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
-import androidx.core.os.bundleOf
+import android.widget.EditText
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.navigation.fragment.findNavController
 
 
-class DetailFragment : Fragment() {
-
+class EditFragment : Fragment() {
+    private lateinit var editWordView: EditText
     var id : Int? = null
-    var textlabel: TextView? = null
-    var button_edit: Button? = null
     private val wordViewModel: WordViewModel by viewModels {
         WordViewModelFactory((activity?.application as WordsApplication).repository)
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        return inflater.inflate(R.layout.fragment_edit, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        textlabel = view.findViewById(R.id.label_word)
-        button_edit = view.findViewById(R.id.button_edit)
-        button_edit?.setOnClickListener{
-            findNavController().navigate(R.id.action_detailFragment_to_editFragment)
-        }
+        editWordView = view.findViewById(R.id.edit_word)
+        Log.d("app","Edit: "+ wordViewModel.selectedItem?.value?.word)
         id = (activity as RecycleViewActivity).selectedId
-        Log.d("app","Detail Act prop: "+ id)
         wordViewModel.getElementById(id!!)
         wordViewModel.selectedItem?.observe(requireActivity()){
             Log.d("app", "Observed word: $it")
-            textlabel?.text = it.word
+            editWordView.setText(it.word)
         }
-
+        val button = view.findViewById<Button>(R.id.button_save)
+        button.setOnClickListener {
+            val replyIntent = Intent()
+            if (TextUtils.isEmpty(editWordView.text)) {
+                // No hay dato
+            } else {
+                val word =Word(id!!,editWordView.text.toString())
+                wordViewModel.updateElement(word)
+            }
+        }
     }
-    fun goToEdit(){
-        findNavController().navigate(R.id.action_detailFragment_to_editFragment)
-    }
-
 
 }
