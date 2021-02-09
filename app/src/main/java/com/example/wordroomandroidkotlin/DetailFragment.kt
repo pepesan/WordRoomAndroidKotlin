@@ -38,8 +38,9 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         id = (activity as RecycleViewActivity).selectedId
         Log.d("app","Detail Act prop: "+ id)
+        wordViewModel.getElementById(id!!)
         wordViewModel.selectedItem?.observe(requireActivity()){
-            Log.d("app", "Observed word: $word")
+            Log.d("app", "Observed word: $it")
         }
     }
 
