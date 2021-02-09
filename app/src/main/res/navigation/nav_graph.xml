@@ -31,7 +31,7 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.wordroomandroidkotlin.DetailFragment"
-        android:label="fragment_detail"
+        android:label="@string/detail_fragment_label"
         tools:layout="@layout/fragment_detail" >
         <action
             android:id="@+id/action_detailFragment_to_editFragment"
@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/editFragment"
         android:name="com.example.wordroomandroidkotlin.EditFragment"
-        android:label="fragment_edit"
+        android:label="@string/edit_fragment_label"
         tools:layout="@layout/fragment_edit" >
         <action
             android:id="@+id/action_editFragment_to_detailFragment"
