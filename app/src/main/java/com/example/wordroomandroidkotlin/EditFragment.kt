@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 
 
 class EditFragment : Fragment() {
@@ -45,7 +46,14 @@ class EditFragment : Fragment() {
             } else {
                 val word =Word(id!!,editWordView.text.toString())
                 wordViewModel.updateElement(word)
+                findNavController().navigate(R.id.action_editFragment_to_detailFragment)
             }
+        }
+        val button_delete = view.findViewById<Button>(R.id.button_delete)
+        button_delete.setOnClickListener{
+            val word =Word(id!!,editWordView.text.toString())
+            wordViewModel.deleteElement(word)
+            findNavController().navigate(R.id.action_editFragment_to_FirstFragment)
         }
     }
 

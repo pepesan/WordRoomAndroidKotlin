@@ -2,7 +2,9 @@ package com.example.wordroomandroidkotlin
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 // Declares the DAO as a private property in the constructor. Pass in the DAO
 // instead of the whole database, because you only need access to the DAO
@@ -28,6 +30,16 @@ class WordRepository(private val wordDao: WordDao) {
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun update(word:Word) {
-        return wordDao.updateWord(word)
+        GlobalScope.launch {
+            wordDao.updateWord(word)
+        }
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun delete(word:Word) {
+        GlobalScope.launch {
+            wordDao.deleteWord(word)
+        }
     }
 }
