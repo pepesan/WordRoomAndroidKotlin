@@ -4,13 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 
@@ -30,6 +29,9 @@ class SecondFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        activity?.setTitle("Add")
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_second, container, false)
     }
 
@@ -39,10 +41,41 @@ class SecondFragment : Fragment() {
 
         val button = view.findViewById<Button>(R.id.button_save)
         button.setOnClickListener {
-            //SAVE
-            wordViewModel.insert(Word(word = editWordView.text.toString()))
-            // return to list
+            save()
+        }
+    }
+
+    private fun save() {
+        //SAVE
+        wordViewModel.insert(Word(word = editWordView.text.toString()))
+        // return to list
+        findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+    }
+
+    /*
+    override fun onPrepareOptionsMenu(menu: Menu){
+        super.onPrepareOptionsMenu(menu)
+        val item = menu.findItem(R.id.action_recycleview)
+        item.isVisible = false
+    }
+
+     */
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_add, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.action_add){
+           save()
+        }
+        if(item.itemId ==android.R.id.home) {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
+        //(activity as AppCompatActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
+        return super.onOptionsItemSelected(item)
+
     }
 }

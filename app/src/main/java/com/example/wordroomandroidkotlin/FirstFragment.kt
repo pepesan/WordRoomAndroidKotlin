@@ -1,10 +1,9 @@
 package com.example.wordroomandroidkotlin
 
 import android.os.Bundle
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -26,6 +25,8 @@ class FirstFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        activity?.setTitle(R.string.list_fragment_label)
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_first, container, false)
     }
 
@@ -52,5 +53,31 @@ class FirstFragment : Fragment() {
         fab.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(false);
+    }
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        val item = menu.findItem(R.id.action_recycleview)
+        item.isVisible = false
+    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.list_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        /*
+        if(item.itemId ==android.R.id.home) {
+            findNavController().navigate(R.id.action_detailFragment_to_FirstFragment)
+        }
+        //(activity as AppCompatActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(false);
+         */
+        return super.onOptionsItemSelected(item)
+
+
     }
 }

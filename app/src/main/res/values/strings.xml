@@ -20,4 +20,6 @@
     <string name="button_delete">Delete</string>
     <string name="detail_fragment_label">Detail</string>
     <string name="edit_fragment_label">Edit</string>
+    <string name="delete_label">Delete</string>
+    <string name="list_fragment_label">List</string>
 </resources>

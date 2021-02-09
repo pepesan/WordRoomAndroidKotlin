@@ -2,16 +2,12 @@ package com.example.wordroomandroidkotlin
 
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.os.bundleOf
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 
 
@@ -26,6 +22,9 @@ class DetailFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+        activity?.setTitle(R.string.detail_fragment_label)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_detail, container, false)
     }
 
@@ -43,6 +42,28 @@ class DetailFragment : Fragment() {
             Log.d("app", "Observed word: $it")
             textlabel?.text = it?.word
         }
+
+    }
+    override fun onPrepareOptionsMenu(menu: Menu){
+        super.onPrepareOptionsMenu(menu)
+        val item = menu.findItem(R.id.action_recycleview)
+        item.isVisible = false
+    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.detail_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        if(item.itemId == R.id.action_detail_edit){
+            findNavController().navigate(R.id.action_detailFragment_to_editFragment)
+        }
+        if(item.itemId ==android.R.id.home) {
+            findNavController().navigate(R.id.action_detailFragment_to_FirstFragment)
+        }
+        (activity as AppCompatActivity).getSupportActionBar()?.setDisplayHomeAsUpEnabled(false);
+        return super.onOptionsItemSelected(item)
 
     }
 
