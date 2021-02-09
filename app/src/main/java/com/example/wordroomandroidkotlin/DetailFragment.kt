@@ -45,9 +45,6 @@ class DetailFragment : Fragment() {
         }
 
     }
-    fun goToEdit(){
-        findNavController().navigate(R.id.action_detailFragment_to_editFragment)
-    }
 
 
 }

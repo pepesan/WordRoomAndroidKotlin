@@ -18,7 +18,7 @@ interface WordDao {
     @Query("SELECT * FROM word_table where id like :id")
     fun getWordById(id: Int): Flow<Word>
     @Update
-    fun updateWord(word: Word)
+    suspend fun updateWord(word: Word)
     @Delete
-    fun deleteWord(word: Word)
+    suspend fun deleteWord(word: Word)
 }

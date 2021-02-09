@@ -1,7 +1,6 @@
 package com.example.wordroomandroidkotlin
 
 import androidx.annotation.WorkerThread
-import androidx.lifecycle.LiveData
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -22,24 +21,19 @@ class WordRepository(private val wordDao: WordDao) {
     suspend fun insert(word: Word) {
         wordDao.insert(word)
     }
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
-    suspend fun findById(id: Int): Flow<Word> {
+
+    fun findById(id: Int): Flow<Word> {
         return wordDao.getWordById(id)
     }
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun update(word:Word) {
-        GlobalScope.launch {
             wordDao.updateWord(word)
-        }
     }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun delete(word:Word) {
-        GlobalScope.launch {
             wordDao.deleteWord(word)
-        }
     }
 }
