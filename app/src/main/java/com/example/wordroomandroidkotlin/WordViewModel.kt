@@ -1,10 +1,14 @@
 package com.example.wordroomandroidkotlin
 
 import androidx.lifecycle.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class WordViewModel(private val repository: WordRepository) : ViewModel() {
 
+    var selectedId : Int? = null
+    var selectedItem: LiveData<Word>? = null
     // Using LiveData and caching what allWords returns has several benefits:
     // - We can put an observer on the data (instead of polling for changes) and only update the
     //   the UI when the data actually changes.
@@ -16,6 +20,16 @@ class WordViewModel(private val repository: WordRepository) : ViewModel() {
      */
     fun insert(word: Word) = viewModelScope.launch {
         repository.insert(word)
+    }
+
+    fun getElementById(id: Int) = viewModelScope.launch {
+        selectedItem = repository.findById(id).asLiveData()
+    }
+    fun updateElement(word: Word) = viewModelScope.launch {
+        repository.update(word)
+    }
+    fun deleteElement(word: Word) = viewModelScope.launch {
+        repository.delete(word)
     }
 }
 
