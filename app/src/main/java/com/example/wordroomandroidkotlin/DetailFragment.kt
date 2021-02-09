@@ -41,7 +41,7 @@ class DetailFragment : Fragment() {
         wordViewModel.getElementById(id!!)
         wordViewModel.selectedItem?.observe(requireActivity()){
             Log.d("app", "Observed word: $it")
-            textlabel?.text = it.word
+            textlabel?.text = it?.word
         }
 
     }

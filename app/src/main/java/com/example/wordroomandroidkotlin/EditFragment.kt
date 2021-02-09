@@ -36,7 +36,7 @@ class EditFragment : Fragment() {
         wordViewModel.getElementById(id!!)
         wordViewModel.selectedItem?.observe(requireActivity()){
             Log.d("app", "Observed word: $it")
-            editWordView.setText(it.word)
+            editWordView.setText(it?.word)
         }
         val button = view.findViewById<Button>(R.id.button_save)
         button.setOnClickListener {
@@ -52,8 +52,8 @@ class EditFragment : Fragment() {
         val button_delete = view.findViewById<Button>(R.id.button_delete)
         button_delete.setOnClickListener{
             val word =Word(id!!,editWordView.text.toString())
-            wordViewModel.deleteElement(word)
             findNavController().navigate(R.id.action_editFragment_to_FirstFragment)
+            wordViewModel.deleteElement(word)
         }
     }
 
