@@ -9,6 +9,9 @@ class WordViewModel(private val repository: WordRepository) : ViewModel() {
 
     var selectedId : Int? = null
     var selectedItem: LiveData<Word>? = null
+    init {
+        selectedItem = MutableLiveData<Word>(Word(0,""))
+    }
     // Using LiveData and caching what allWords returns has several benefits:
     // - We can put an observer on the data (instead of polling for changes) and only update the
     //   the UI when the data actually changes.
