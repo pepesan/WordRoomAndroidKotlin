@@ -1,12 +1,10 @@
 package com.example.wordroomandroidkotlin
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
 class WordListAdapterFragment(
@@ -67,13 +65,5 @@ class WordListAdapterFragment(
     override fun getItemCount(): Int {
         return list.size
     }
-    class WordsComparator : DiffUtil.ItemCallback<Word>() {
-        override fun areItemsTheSame(oldItem: Word, newItem: Word): Boolean {
-            return oldItem === newItem
-        }
 
-        override fun areContentsTheSame(oldItem: Word, newItem: Word): Boolean {
-            return oldItem.word == newItem.word
-        }
-    }
 }
